@@ -1,0 +1,51 @@
+	1. Auto restart:
+		a. Add devtools GAV in pom
+			i. artifactID - spring-boot-devtools
+		b. To auto compile and restart the server in IntelliJ
+			i. Settings - Compile - Build project automatically
+			ii. Advanced Settings - Allow auto-make to start
+	
+	2. Actuator endpoints to monitor health and take metrics
+		a. Add actuator GAV in pom
+			i. artifactID - spring-boot-starter-actuator
+		b. Application.properties
+			i. management.endpoints.web.exposure.include=health,info or *
+			ii. management.info.env.enabled=true
+			iii. info.app.name=something or ${spring.application.name}
+		c. Endpoints exposed
+			i. /actuator/health
+			ii. /actuator/info
+			iii. /actuator/beans
+			iv. /actuator/mappings
+	3. Security to protect endpoint
+		a. Add actuator GAV in pom
+			i. artifactID - spring-boot-starter-security
+		b. Login user/key_in_console
+	4. Two ways to run app other than IDE
+		Ø java -jar appname.jar
+		Ø mvn package and mvn spring-boot:run
+	5. Injection
+		a. Constructor
+		b. Setter
+		c. Any method in the same way as setter
+		d. Field(not recommended)
+	6. How to use injection?
+		a. Interface (no need of any annotation)
+		b. Class that implements interface (@Component)
+		c. Controller(@RestController)
+			i. Constructor Injection(@Autowired) (@Qualifier in the method org if there are multiple impl classes-mangoYogurt)
+			ii. Setter Injection(@Autowired) 
+			iii. Any method Injection
+	7. @Primary in the Impl class @Component instead of @Qualifier
+		a. Only one class can be Primary
+		b. Qualifier has higher priority
+	8. Lazy Initialization
+		a. Use @Lazy in the bean @Component
+		b. Global - app.properties
+			i. spring.main.lazy-initialization=true
+			ii. Means all beans are lazy and no beans are created until needed
+	9. Bean Scopes
+		a. Default scope of a bean is Singleton
+		Spring container creates only 1 instance of the bean by default. It is cached in memory.
+		All dependency injections for the bean will reference the same bean
+		b. Can explicitly specify this in class by this: @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
